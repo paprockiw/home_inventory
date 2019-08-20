@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  inventorydb:
+    image: postgres
+  webapp:
+#    network_mode: bridge
+    build: .
+    command: python /inventory/inventory_project/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/inventory
+    ports:
+      - "8000:8000"
+    depends_on:
+      - inventorydb
